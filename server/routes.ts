@@ -62,7 +62,7 @@ const sampleImageMap: Record<string, string> = {
 export async function registerRoutes(app: Express): Promise<Server> {
   app.use(
     session({
-      secret: process.env.SESSION_SECRET || "invitation-gallery-secret-change-in-production",
+      secret: process.env.SESSION_SECRET || (await import("crypto")).randomBytes(32).toString("hex"),
       resave: false,
       saveUninitialized: false,
       cookie: {
